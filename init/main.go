@@ -10,7 +10,7 @@ import (
 func main() {
 	app := &cli.App{
 		Name: "project-client",
-	
+		Action: run,
 	}
 
 	if err := app.Run(os.Args); err != nil {

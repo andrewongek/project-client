@@ -1,4 +1,4 @@
-module project/client
+module project-client
 
 go 1.20
 

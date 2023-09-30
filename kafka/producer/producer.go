@@ -25,7 +25,7 @@ func NewProducer() *Producer {
 func (p *Producer) Send(data, topic string) {
 	msg := &sarama.ProducerMessage{
 		Topic: topic,
-		Key: nil, 
+		Key:   nil,
 		Value: sarama.StringEncoder(data),
 	}
 	p.producer.Input() <- msg

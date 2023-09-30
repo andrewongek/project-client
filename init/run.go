@@ -9,5 +9,7 @@ func run(c *cli.Context) error {
 
 	// RPC - GRPC
 
+	//Initiallise Kafka Producer
+
 	return nil 
 }

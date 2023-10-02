@@ -2,35 +2,31 @@ package main
 
 import (
 	"fmt"
-	"project-client/kafka/consumer"
-	"project-client/kafka/producer"
-	"time"
+	"project-client/server"
+	"sync"
 
 	"github.com/urfave/cli/v2"
 )
 
 func run(c *cli.Context) error {
-	
-	fmt.Println("Server running")
 
-	//Set up handlers
-	// HTTP - GIN
-
-	// RPC - GRPC
-
-	//Initiallise Kafka Producer
-	topic := "test-topic"
-
-	go consumer.NewConsumer(topic)
-
-	producer := producer.NewProducer()
-	for i := 0; i < 100; i++ {
-		producer.Send(fmt.Sprintf("TEST - %d", i), topic)
-		time.Sleep(time.Second * 3)
+	NewServer, err := server.NewServer()
+	if err != nil {
+		panic(err)
 	}
-	
-	fmt.Println("Server running")
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		err := NewServer.Start()
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Server running")
 
+	}()
+
+	wg.Wait()
 
 	return nil
 }

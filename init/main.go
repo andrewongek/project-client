@@ -9,7 +9,7 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name: "project-client",
+		Name:   "project-client",
 		Action: run,
 	}
 

@@ -1,6 +1,8 @@
 package producer
 
 import (
+	"fmt"
+
 	"github.com/IBM/sarama"
 )
 
@@ -8,21 +10,21 @@ type Producer struct {
 	producer sarama.AsyncProducer
 }
 
-func NewProducer() *Producer {
+func NewProducer() (*Producer, error) {
 
 	config := sarama.NewConfig()
 	asyncP, err := sarama.NewAsyncProducer([]string{"localhost:9092"}, config)
 	if err != nil {
-		panic(err)
+		return nil, fmt.Errorf("failed to setup producer", err)
 	}
 
 	p := &Producer{}
 	p.producer = asyncP
 
-	return p
+	return p, nil
 }
 
-func (p *Producer) Send(data, topic string) {
+func (p *Producer) Send(data []byte, topic string) {
 	msg := &sarama.ProducerMessage{
 		Topic: topic,
 		Key:   nil,

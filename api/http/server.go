@@ -29,6 +29,6 @@ func (g *GinServer) AddKafkaHandlers(p *producer.Producer) *GinServer {
 	return g
 }
 
-func(g *GinServer) Run() {
+func (g *GinServer) Run() {
 	g.router.Run()
 }
